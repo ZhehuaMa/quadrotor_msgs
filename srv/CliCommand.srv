@@ -1,0 +1,18 @@
+# Betaflight 设置表读写服务，经 apm_bridge 自定义链路 CLI 通道 (0x24/0x15)
+# 到达 FC 的真实设置引擎（与串口 CLI / MSP2_CLI_SETTING 同源：同名字匹配、
+# 同范围校验、同 "name = value" 文本）。写仅入 RAM（同 CLI set 不 save）。
+# 协议定义见 betaflight 仓库 telemetry/custom_link_protocol.h。
+# APPLY_PID 显式刷新当前 profile 的运行系数；已解锁时要求 OFFBOARD 零输出。
+uint8 CMD_GET=0
+uint8 CMD_SET=1
+uint8 CMD_INFO=2
+uint8 CMD_BIND_RX=3
+uint8 CMD_SAVE=4
+uint8 CMD_APPLY_PID=5
+uint8 cmd
+string args        # GET/INFO: name; SET: "name = value"; APPLY_PID: "check", "angle" capability, or profile index
+---
+bool ok            # true = 收到完整响应（含 FC 报错，看 status/text）
+uint8 status       # 0 = OK，1 = FC 侧错误（SET FAILED / NOT FOUND / ...）
+string text        # 重组后的响应文本（GET/SET 回读 "name = value"；INFO 元数据）
+string error       # ok=false 时的本地失败原因（timeout / link down / bad request）
