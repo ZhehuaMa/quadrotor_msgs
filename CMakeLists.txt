@@ -19,6 +19,7 @@ rosidl_generate_interfaces(${PROJECT_NAME}
     msg/LowLevelFeedback.msg
     msg/Trajectory.msg
     msg/TrajectoryPoint.msg
+    srv/CliCommand.srv
     DEPENDENCIES geometry_msgs std_msgs nav_msgs
 )
 
