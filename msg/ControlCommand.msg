@@ -6,6 +6,9 @@ uint8 ATTITUDE=1
 uint8 BODY_RATES=2
 uint8 ANGULAR_ACCELERATIONS=3
 uint8 ROTOR_THRUSTS=4
+# custom link 0x20 mode_req=1: pure collective throttle, FC PID bypassed
+# (bench thrust test only; the FC gates it behind custom_link_motor_direct)
+uint8 MOTOR_DIRECT=5
 
 std_msgs/Header header
 
